@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@android:color/background_light">
+
+    <GridLayout
+        android:id="@+id/style_quality_speed"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/style_quality_1"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/fab_margin" />
+
+        <TextView
+            android:id="@+id/style_quality_2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorWhite"
+            android:textAlignment="center"
+            android:textSize="@dimen/fab_margin" />
+
+    </GridLayout>
+
+
+    <ImageView
+        android:id="@+id/full_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@android:color/background_dark"
+        android:background="@color/global_background"/>
+
+
+    <HorizontalScrollView
+        android:id="@+id/filter_container_full_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/global_background"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </HorizontalScrollView>
+
+</android.support.constraint.ConstraintLayout>

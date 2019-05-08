@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#6495ED</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorMenuBackground">#609095</color>
+    <color name="lime">#7CFC00</color>
+    <color name="black">#000000</color>
+    <color name="menuBackground">#000000</color>
+    <color name="quailty_choosen">#22A1F6</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="colorWhite">#ffffff</color>
+
+
+    <color name="MainMenuButtonColor">#ccddaa</color>
+    <color name="MainMenuButtonTextColor">#ffffff</color>
+    <color name="MainMenuBackground">#bbbbbb</color>
+
+    <color name="global_background">#000000</color>
+
 </resources>

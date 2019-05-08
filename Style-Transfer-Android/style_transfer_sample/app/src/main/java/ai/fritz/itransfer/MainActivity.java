@@ -1,331 +1,221 @@
 package ai.fritz.itransfer;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.media.Image;
-import android.media.ImageReader;
-import android.net.Uri;
-import android.os.Environment;
-import android.os.SystemClock;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.TransitionDrawable;
+import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.util.Log;
-import android.util.Size;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
-import android.widget.Toast;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Random;
 
-import ai.fritz.core.Fritz;
-import ai.fritz.fritzvisionstylemodel.ArtisticStyle;
-import ai.fritz.fritzvisionstylemodel.FritzVisionStylePredictor;
-import ai.fritz.fritzvisionstylemodel.FritzVisionStyleTransfer;
-import ai.fritz.vision.inputs.FritzVisionImage;
-import ai.fritz.vision.inputs.FritzVisionOrientation;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends BaseCameraActivity implements ImageReader.OnImageAvailableListener, StyleFragment.OnStyleChoiceListener {
+    private TextView CameraButtonView;
+    private TextView GalleryButtonView;
+    private TextView HelpButtonView;
+    private ImageView ViewSettings;
+    private ImageView imageView;
+    private int images_index[] = {R.drawable.animation_cat,
+                            R.drawable.animation_dog,
+                            R.drawable.animation_mona};
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private CountDownTimer timer;
 
-    private static final Size DESIRED_PREVIEW_SIZE = new Size(1280, 960);
-
-    private AtomicBoolean computing = new AtomicBoolean(false);
-
-    private FritzVisionImage styledImage;
-
-    private FritzVisionStylePredictor predictor;
-
-    private Size cameraViewSize;
-
-    private FrameLayout layout;
-    private HorizontalScrollView filterLayout;
-    private boolean isLongClickPerformed = false;
-
-    private View contextView;
-    private boolean isFilterSet = false;
-    private  boolean isFilterShown = false;
-    private static String savedImage = "";
-
-    private float downX = 0, upX = 0;
-
-
-    @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fritz.configure(this);
-        predictor = FritzVisionStyleTransfer.getPredictor(this, ArtisticStyle.HEAD_OF_CLOWN);
-
-        layout = findViewById(R.id.camera_container);
-        filterLayout = findViewById(R.id.filter_container);
+        setContentView(R.layout.activity_main);
 
 
-        layout.setOnLongClickListener(new View.OnLongClickListener() {
+
+
+
+        imageView = findViewById(R.id.image_background_main_activity);
+        ViewSettings = findViewById(R.id.image_settings_main_activity);
+        LinearLayout images_view = findViewById(R.id.images_main_axtivity);
+        //ConstraintLayout images_view = findViewById(R.id.images_main_axtivity);
+
+        ConstraintLayout view = findViewById(R.id.main_activity);
+        view.bringChildToFront((View)ViewSettings.getParent());
+
+        ViewSettings.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                saveImage();
-                isLongClickPerformed = true;
-                return true;
+            public void onClick(View v) {
+                showSettingsView();
             }
         });
 
-        layout.setOnTouchListener(new View.OnTouchListener() {
+       // ViewSettings.bringToFront();
+        //bringChildToFront(ViewSettings);
+        //imageView.bringToFront();
+        //\images_view.bringChildToFront(ViewSettings);
+        //ViewSettings.setVisibility(View.VISIBLE);
+
+
+
+
+        //imageView.setImageResource(R.drawable.background_image_gendalf);
+
+
+
+
+
+
+
+
+
+
+        CameraButtonView = findViewById(R.id.camera_button);
+        GalleryButtonView = findViewById(R.id.gallery_button);
+        HelpButtonView = findViewById(R.id.help_button);
+
+        CameraButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case(MotionEvent.ACTION_DOWN):
-
-                        downX = event.getX();
-                        break;
-                    case(MotionEvent.ACTION_UP):
-
-                        upX = event.getX();
-                        float deltaX = downX - upX;
-                        if(Math.abs(deltaX) > 20){
-                            isLongClickPerformed = false;
-                            if (deltaX>=0){
-                                swipePerformed();
-                                return false;
-                            }else{
-                                swipePerformed();
-                                return false;
-                            }
-                        } else {
-
-                            if (isFilterShown) {
-                                filterLayout.setVisibility(View.INVISIBLE);
-                                isFilterShown = false;
-                                break;
-                            }
-                            if (event.getAxisValue(MotionEvent.AXIS_Y) >= cameraViewSize.getHeight() / 2 &&
-                                    !isLongClickPerformed && !isFilterShown) {
-                                Log.d(TAG, "show styles");
-                                contextView = v;
-                                if (!isFilterSet) {
-                                    setFilter();
-                                    isFilterShown = true;
-                                } else {
-                                    StyleFragment styleFrag = (StyleFragment)
-                                            getFragmentManager().findFragmentById(R.id.filter_container);
-
-                                    if (styleFrag != null) {
-                                        styleFrag.setVisible();
-                                        filterLayout.setVisibility(View.VISIBLE);
-                                        isFilterShown = true;
-                                    }
-                                }
-                            }
-                            isLongClickPerformed = false;
-                            break;
-                        }
-                }
-                return false;
+            public void onClick(View v) {
+                showCameraView();
             }
         });
 
-    }
-
-    void swipePerformed() {
-            Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
-            startActivity(intent);
-    }
-
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.camera_connection_fragment_stylize;
-    }
-
-
-    @Override
-    protected Size getDesiredPreviewFrameSize() {
-        return DESIRED_PREVIEW_SIZE;
-    }
-
-    @Override
-    public void onPreviewSizeChosen(final Size previewSize, final Size cameraViewSize, final int rotation) {
-
-        this.cameraViewSize = cameraViewSize;
-
-        // Callback draws a canvas on the OverlayView
-        addCallback(
-                new OverlayView.DrawCallback() {
-                    @Override
-                    public void drawCallback(final Canvas canvas) {
-                        if (styledImage != null) {
-                             styledImage.drawOnCanvas(canvas);
-                        }
-                    }
-                });
-    }
-
-    public void saveImage(){
-        if (styledImage != null){
-            Log.d(TAG,"saveImage");
-            runInBackground(new ImageSaver(styledImage.getBitmap()));
-            if (this.savedImage != ""){
-                galleryAddPic(savedImage);
-                this.savedImage = "";
+        GalleryButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showGalleryView();
             }
-            Toast toast = Toast.makeText(getApplicationContext(), "Image saved!", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+        });
+
+        HelpButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHelpView();
+            }
+        });
+
+
+
+
     }
 
-
-    @Override
-    public void onImageAvailable(final ImageReader reader) {
-        Image image = reader.acquireLatestImage();
-
-        if (image == null) {
-            return;
-        }
-
-        if (!computing.compareAndSet(false, true)) {
-            image.close();
-            return;
-        }
-
-        // Create the FritzVisionImage object from media.Image
-        int rotationFromCamera = FritzVisionOrientation.getImageRotationFromCamera(this, cameraId);
-        final FritzVisionImage fritzImage = FritzVisionImage.fromMediaImage(image, rotationFromCamera);
-
-        image.close();
-
-
-        runInBackground(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        final long startTime = SystemClock.uptimeMillis();
-                        styledImage = predictor.predict(fritzImage);
-                        styledImage.scale(cameraViewSize.getWidth(), cameraViewSize.getHeight());
-                        Log.d(TAG, "INFERENCE TIME:" + (SystemClock.uptimeMillis() - startTime));
-
-                        requestRender();
-                        computing.set(false);
-                    }
-                });
+    private int getRandomImageIndex(int min, int max){
+        Random random = new Random();
+        return random.nextInt(max);
     }
 
     @Override
-    public void onStyleChoice(int numStyle) {
-        predictor = FritzVisionStyleTransfer.getPredictor(contextView.getContext(), getArtisticStyle(numStyle));
-        filterLayout.setVisibility(View.INVISIBLE);
-        isFilterShown = false;
-    }
+    protected void onResume() {
+        super.onResume();
+        //Intent intent_ = new Intent(MainActivity.this, EncodeVideoActivity.class);
+        //startActivity(intent_);
 
-    private ArtisticStyle getArtisticStyle(int numStyle){
-        ArtisticStyle style = ArtisticStyle.BICENTENNIAL_PRINT;
-        switch (numStyle){
-            case (0):
-                style = ArtisticStyle.BICENTENNIAL_PRINT;
-                break;
-            case (1):
-                style = ArtisticStyle.FEMMES;
-                break;
-            case (2):
-                style = ArtisticStyle.HEAD_OF_CLOWN;
-                break;
-            case (3):
-                style = ArtisticStyle.HORSES_ON_SEASHORE;
-                break;
-            case (4):
-                style = ArtisticStyle.KALEIDOSCOPE;
-                break;
-            case (5):
-                style = ArtisticStyle.PINK_BLUE_RHOMBUS;
-                break;
-            case (6):
-                style = ArtisticStyle.POPPY_FIELD;
-                break;
-            case (7):
-                style = ArtisticStyle.RITMO_PLASTICO;
-                break;
-            case (8):
-                style = ArtisticStyle.STARRY_NIGHT;
-                break;
-            case (9):
-                style = ArtisticStyle.THE_SCREAM;
-                break;
-            case (10):
-                style = ArtisticStyle.THE_TRAIL;
-                break;
-        }
-        return style;
-    }
+        int id = getRandomImageIndex(0, images_index.length);
+        ///imageView.setImageBitmap(BitmapFactory.decodeResource(
+          //      getResources(), images_index[id]));
 
+        imageView.setImageDrawable(getDrawable(images_index[id]));
 
-    private static class ImageSaver implements Runnable {
+        final TransitionDrawable transitionDrawableransitionDrawable = (TransitionDrawable) imageView
+                .getDrawable();
 
-        /**
-         * The JPEG image
-         */
-        private final Bitmap mImage;
-        /**
-         * The file we save the image into.
-         */
+        timer = new CountDownTimer(1000000, 2000) {
+            public void onTick(long millisUntilFinished) {
+                //transitionDrawableransitionDrawable.startTransition(2000);
+                transitionDrawableransitionDrawable.reverseTransition(1000);
+            }
 
-        ImageSaver(Bitmap image) {
-            mImage = image;
-        }
+            public void onFinish() {
 
-        @Override
-        public void run() {
-            Log.d(TAG, "run saving");
-          String root = Environment.getExternalStorageDirectory().toString();
-          //File myDir = new File(root + "/saved_images");
-          File myDir = new File(
-                  Environment.getExternalStoragePublicDirectory(
-                          Environment.DIRECTORY_PICTURES
-                  ),
-                  "Itransferred_images"
-          );
-          myDir.mkdirs();
-
-          String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-          String filename = "Styled_" + timestamp + ".jpg";
-
-          File file = new File(myDir, filename);
-          if (file.exists()) file.delete();
-          try{
-              FileOutputStream out = new FileOutputStream(file);
-              mImage.compress(Bitmap.CompressFormat.JPEG, 100, out);
-              out.flush();
-              out.close();
-              MainActivity.savedImage = file.getAbsolutePath();
-          }
-          catch (Exception e){
-              e.printStackTrace();
-          }
-        }
+            }
+        };
+        timer.start();
 
     }
 
-    private void setFilter() {
-        final Fragment fragment = StyleFragment.newInstance(0);
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.filter_container, fragment)
-                .commit();
-        isFilterSet = true;
+    @Override
+    protected void onStop() {
+        super.onStop();
+        timer.cancel();
     }
 
-    private void galleryAddPic(String photoPath) {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File file = new File(photoPath);
-        Uri contentUri = Uri.fromFile(file);
-        mediaScanIntent.setData(contentUri);
-        sendBroadcast(mediaScanIntent);
+    private void showCameraView(){
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.scale_main_activity_button);
+        CameraButtonView.startAnimation(anim);
+        Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+        startActivity(intent);
+
+        /*new CountDownTimer(100, 100) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+            public void onFinish() {
+
+            }
+        }.start();
+*/
     }
+
+    private void showGalleryView(){
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.scale_main_activity_button);
+        GalleryButtonView.startAnimation(anim);
+
+        new CountDownTimer(50, 50) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+            public void onFinish() {
+                Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+
+
+    }
+
+    private void showHelpView(){
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.scale_main_activity_button);
+        HelpButtonView.startAnimation(anim);
+
+        new CountDownTimer(50, 50) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+            public void onFinish() {
+                Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+
+    }
+
+
+
+    private void showSettingsView(){
+
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.settings_animation);
+        ViewSettings.startAnimation(anim);
+
+        new CountDownTimer(200, 200) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+            public void onFinish() {
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+
+
+    }
+
 }

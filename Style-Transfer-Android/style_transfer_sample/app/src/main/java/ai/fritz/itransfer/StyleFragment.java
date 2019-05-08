@@ -68,9 +68,11 @@ public class StyleFragment extends Fragment {
 
     private void configureImageButtons(){
         LinearLayout layout = view.findViewById(R.id.filter_layout);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 12; i++) {
             ImageView imageView = new ImageView(view.getContext());
             imageView.setId(i);
+
+
             imageView.setImageBitmap(BitmapFactory.decodeResource(
                     getResources(), getDrawablePicFromIndex(i)));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -125,6 +127,9 @@ public class StyleFragment extends Fragment {
                 break;
             case (10):
                 picture = R.drawable.nolan_the_trial;
+                break;
+            case (11):
+                picture = R.drawable.cross;
                 break;
         }
         return picture;

@@ -1,16 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:id="@+id/main_activity">
 
     <FrameLayout
-        android:id="@+id/camera_container"
+        android:id="@+id/main_activity_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-    <HorizontalScrollView
-        android:id="@+id/filter_container"
+
+
+        <ImageView
+            android:id="@+id/image_settings_main_activity"
+            android:layout_margin="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:src="@drawable/settings" />
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/images_main_axtivity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"></HorizontalScrollView>
+        android:layout_height="match_parent"
+        android:background="@color/global_background"
+
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+
+            android:id="@+id/image_background_main_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:foregroundGravity="bottom"
+            android:layout_marginBottom="20dp"
+
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/camera_button"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+
+            android:background="@drawable/main_activity_button"
+            android:gravity="center"
+            android:text="@string/camera_button_text"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_main_activity"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/gallery_button"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/main_activity_button"
+            android:gravity="center"
+            android:text="@string/gallery_button_text"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_main_activity"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/help_button"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/main_activity_button"
+            android:gravity="center"
+            android:text="@string/help_button_text"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_main_activity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+    </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>

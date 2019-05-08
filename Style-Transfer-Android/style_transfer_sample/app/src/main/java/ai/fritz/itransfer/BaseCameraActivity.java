@@ -1,7 +1,6 @@
 package ai.fritz.itransfer;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
@@ -13,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
 import android.view.KeyEvent;
@@ -20,7 +21,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 
-public abstract class BaseCameraActivity extends Activity implements OnImageAvailableListener {
+public abstract class BaseCameraActivity extends AppCompatActivity implements OnImageAvailableListener {
     private static final String TAG = BaseCameraActivity.class.getSimpleName();
 
     private static final int PERMISSIONS_REQUEST = 1;
@@ -40,9 +41,11 @@ public abstract class BaseCameraActivity extends Activity implements OnImageAvai
     protected void onCreate(final Bundle savedInstanceState) {
         Log.d(TAG, "onCreate " + this);
         super.onCreate(null);
+
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera);
 
         if (hasPermission()) {
             setFragment();
@@ -50,6 +53,7 @@ public abstract class BaseCameraActivity extends Activity implements OnImageAvai
             requestPermission();
         }
     }
+
 
     @Override
     public synchronized void onStart() {
@@ -62,7 +66,14 @@ public abstract class BaseCameraActivity extends Activity implements OnImageAvai
         Log.d(TAG, "onResume " + this);
         super.onResume();
 
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        //setContentView(R.layout.activity_camera);
+
+
+
         handlerThread = new HandlerThread("inference");
+
         handlerThread.start();
         handler = new Handler(handlerThread.getLooper());
     }

@@ -3,4 +3,19 @@
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_full_image_view">FullImageView</string>
+    <string name="quality">quality video/photo</string>
+    <string name="quality_low">low</string>
+    <string name="quality_medium">medium</string>
+    <string name="quality_high">high</string>
+    <string name="photo_text">photo</string>
+    <string name="video_text">video</string>
+    <string name="video_photo_text">choose video or photo</string>
+
+
+    <string name="camera_button_text">Camera</string>
+    <string name="gallery_button_text">Gallery</string>
+    <string name="help_button_text">Help</string>
+
+
 </resources>
