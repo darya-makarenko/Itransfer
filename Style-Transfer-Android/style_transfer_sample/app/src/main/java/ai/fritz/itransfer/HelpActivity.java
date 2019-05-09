@@ -42,6 +42,8 @@ public class HelpActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         index = 0;
+
+
         imageView = findViewById(R.id.help_image);
         if (MenuActivity.lang == 0){
             imageView.setImageDrawable(getDrawable(help_images_eng[index]));

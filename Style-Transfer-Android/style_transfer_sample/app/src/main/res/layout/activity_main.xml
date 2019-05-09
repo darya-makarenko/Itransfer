@@ -68,7 +68,7 @@
 
             android:background="@drawable/main_activity_button"
             android:gravity="center"
-            android:text="@string/camera_button_text"
+            android:text="@string/camera_button_text_eng"
             android:textAlignment="center"
             android:textSize="@dimen/text_size_main_activity"
 
@@ -83,7 +83,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/main_activity_button"
             android:gravity="center"
-            android:text="@string/gallery_button_text"
+            android:text="@string/gallery_button_text_eng"
             android:textAlignment="center"
             android:textSize="@dimen/text_size_main_activity"
             app:layout_constraintTop_toTopOf="parent" />
@@ -96,7 +96,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/main_activity_button"
             android:gravity="center"
-            android:text="@string/help_button_text"
+            android:text="@string/help_button_text_eng"
             android:textAlignment="center"
             android:textSize="@dimen/text_size_main_activity"
             app:layout_constraintStart_toStartOf="parent"

@@ -22,8 +22,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.v4.content.ContextCompat.getColorStateList;
+import static android.support.v4.content.ContextCompat.getDrawable;
 import static android.support.v4.content.ContextCompat.startActivity;
 
 
@@ -32,12 +35,19 @@ public class StyleAdapter extends RecyclerView.Adapter<StyleAdapter.ImageViewHol
     private int numberItems;
     public static List<CustomDrawable> styles;
     private int numHolders;
+    private RecyclerView  recycler;
+    private List<View> recycler_view;
+    private TextView view_choosen;
+    private ImageView image_preview;
 
 
-    public StyleAdapter(List<CustomDrawable> styles_) {
+    public StyleAdapter(List<CustomDrawable> styles_, ImageView image_preview_) {
         numberItems = styles_.size();
         styles = styles_;
         numHolders = 0;
+        recycler_view = new ArrayList<View>();
+        image_preview = image_preview_;
+
 
     }
 
@@ -49,19 +59,49 @@ public class StyleAdapter extends RecyclerView.Adapter<StyleAdapter.ImageViewHol
 
         LayoutInflater inflater = LayoutInflater.from(context);
         final View view = inflater.inflate(R.layout.style_cell, viewGroup, false);
+        recycler_view.add(view);
 
         ImageViewHolder viewHolder = new ImageViewHolder(view);
 
+        if (i == 0){
+            view_choosen = view.findViewById(R.id.text_style);
+        }
+        recycler = viewGroup.findViewById(R.id.choose_default_style_rv);
+
 
         view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+           /*     int len = recycler_view.size();
+                for (int i=0; i < len; i++){
+                    //recycler_view.get(i).setBackgroundResource(R.color.menuBackground);
+                    recycler_view.get(i).findViewById(R.id.text_style).
+                            setBackgroundResource(R.color.menuBackground);
+                }
+                //v.setBackgroundResource(R.drawable.main_activity_button);
+
+
+*/              MenuActivity.style_num = recycler.getChildLayoutPosition(v);
+                image_preview.setImageResource(styles.get(MenuActivity.style_num).id);
+
+                //view.setImageDrawable(recycler_view.get());
+
+                //recycler.getLayoutParams().height = 0;
+                //recycler.requestLayout();
+
+                //MenuActivity.isVisibleStyleChoose = false;
+               //recycler.setVisibility(View.INVISIBLE);
+            }
+        });
+       /* view.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                RecyclerView recycler = viewGroup.findViewById(R.id.choose_default_style_rv);
+                recycler = viewGroup.findViewById(R.id.choose_default_style_rv);
                 int pic_id = recycler.getChildLayoutPosition(v);
 
             }
-        });
+        });*/
 
         return viewHolder;
     }
@@ -91,8 +131,11 @@ public class StyleAdapter extends RecyclerView.Adapter<StyleAdapter.ImageViewHol
             textView = itemView.findViewById(R.id.text_style);
 
 
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(100, 100);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(180, 180);
 
+            layoutParams.leftMargin = 10;
+            layoutParams.topMargin = 10;
+            //layoutParams.topMargin = 10;
             imageView.setLayoutParams(layoutParams);
 
             // imageView.setMaxHeight();
@@ -100,11 +143,36 @@ public class StyleAdapter extends RecyclerView.Adapter<StyleAdapter.ImageViewHol
         }
 
         void bind(int listIndex) {
+
+
+
+            /*
+            int len = recycler_view.size();
+            for (int i=0; i < len; i++){
+                //recycler_view.get(i).setBackgroundResource(R.color.menuBackground);
+                recycler_view.get(i).findViewById(R.id.text_style).
+                        setBackgroundResource(R.color.menuBackground);
+            }
+
+            TextView view = recycler_view.get(listIndex % recycler_view.size()).
+                                                findViewById(R.id.text_style);
+
+            view.setBackgroundResource(R.drawable.main_activity_button);
+            //v.setBackgroundResource(R.drawable.main_activity_button);
+            //view_choosen.
+            //        setBackgroundResource(R.drawable.main_activity_button);
+
+*/
+
+
+
             Picasso.get().load(styles.get(listIndex).id)
-                    .resize(100,100)
+                    .resize(300,300)
                     //.fit()
                     .into(imageView);
+
             textView.setText(styles.get(listIndex).name);
+
 
         }
     }

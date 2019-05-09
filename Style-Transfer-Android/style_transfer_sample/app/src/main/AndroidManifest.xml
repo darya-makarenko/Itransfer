@@ -72,7 +72,7 @@
 
         <meta-data
             android:name="fritz_api_key"
-            android:value="2986e37ac36245dc827dcf993bd4c483" />
+            android:value="35f5192f40974bbc8aae41d9a29cad33" />
 
         <service
             android:name="ai.fritz.core.FritzJob"

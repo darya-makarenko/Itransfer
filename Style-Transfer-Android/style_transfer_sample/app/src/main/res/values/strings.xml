@@ -4,18 +4,44 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_full_image_view">FullImageView</string>
-    <string name="quality">quality video/photo</string>
-    <string name="quality_low">low</string>
-    <string name="quality_medium">medium</string>
-    <string name="quality_high">high</string>
-    <string name="photo_text">photo</string>
-    <string name="video_text">video</string>
-    <string name="video_photo_text">choose video or photo</string>
 
 
-    <string name="camera_button_text">Camera</string>
-    <string name="gallery_button_text">Gallery</string>
-    <string name="help_button_text">Help</string>
+    <string name="help_button_text_eng">Help</string>
+    <string name="gallery_button_text_eng">Gallery</string>
+    <string name="camera_button_text_eng">Camera</string>
+
+    <string name="help_button_text_rus">Помощь</string>
+    <string name="gallery_button_text_rus">Галерея</string>
+    <string name="camera_button_text_rus">Камера</string>
+
+
+    <string name="full_image_high_eng">high</string>
+    <string name="full_image_low_eng">low</string>
+
+    <string name="full_image_high_rus">высокое</string>
+    <string name="full_image_low_rus">низкое</string>
+
+
+
+    <string name="quality_eng">photo quality</string>
+    <string name="quality_low_eng">low</string>
+    <string name="quality_medium_eng">medium</string>
+    <string name="quality_high_eng">high</string>
+    <string name="choose_lang_text_eng">language</string>
+    <string name="style_choose_eng">default style</string>
+
+    <string name="quality_rus">качество фото</string>
+    <string name="quality_low_rus">низкое</string>
+    <string name="quality_medium_rus">среднее</string>
+    <string name="quality_high_rus">высокое</string>
+    <string name="choose_lang_text_rus">язык</string>
+    <string name="style_choose_rus">стиль по умолчанию</string>
+
+    <string name="rus_text">русский</string>
+    <string name="eng_text">english</string>
+
+
+
 
 
 </resources>

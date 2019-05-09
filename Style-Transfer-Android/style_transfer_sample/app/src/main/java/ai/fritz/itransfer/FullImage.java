@@ -9,6 +9,7 @@ import android.app.Fragment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
@@ -54,6 +55,9 @@ public class FullImage extends AppCompatActivity  implements  StyleFragment.OnSt
     private ImageView image;
     private Intent intent;
     private boolean is_shared;
+
+    private TextView textView_1;
+    private TextView textView_2;
 
 
 /*
@@ -124,12 +128,20 @@ public class FullImage extends AppCompatActivity  implements  StyleFragment.OnSt
         }
 
         setBitmap(imageUri);
+        contextView = findViewById(R.id.full_image);
+        predictor = null;
+        //if (MenuActivity.style_num == 11) {
+        //    predictor = null;
+        //} else {
+        //    predictor = FritzVisionStyleTransfer.getPredictor(contextView.getContext(),
+         //           StyleTrasferWork.getArtisticStyle(MenuActivity.style_num));
+        //}
 
-        predictor = FritzVisionStyleTransfer.getPredictor(this, ArtisticStyle.HEAD_OF_CLOWN);
+        //predictor = FritzVisionStyleTransfer.getPredictor(this, ArtisticStyle.HEAD_OF_CLOWN);
         filterLayout = findViewById(R.id.filter_container_full_image);
 
 
-        contextView = findViewById(R.id.full_image);
+
         setFilter();
         showFilter();
 
@@ -203,11 +215,13 @@ public class FullImage extends AppCompatActivity  implements  StyleFragment.OnSt
 
         //speed_quality_view = (GridLayout)findViewById(R.id.style_quality_speed);
 
-        final TextView textView_1 = findViewById(R.id.style_quality_1);
-        final TextView textView_2 = findViewById(R.id.style_quality_2);
-        textView_1.setText("high quality");
-        textView_2.setText("low quality");
-
+        textView_1 = findViewById(R.id.style_quality_1);
+        textView_2 = findViewById(R.id.style_quality_2);
+        if (MenuActivity.lang == 0){
+            setEnglish();
+        } else {
+            setRussian();
+        }
         textView_1.setTextColor(getResources().getColor(R.color.quailty_choosen));
 
         // textView_1.setTextColor(16777215);
@@ -469,5 +483,16 @@ public class FullImage extends AppCompatActivity  implements  StyleFragment.OnSt
         }
     }
 
+
+    private void setEnglish(){
+        textView_1.setText(R.string.full_image_high_eng);
+        textView_2.setText(R.string.full_image_low_eng);
+    }
+
+    private void setRussian(){
+        textView_1.setText(R.string.full_image_high_rus);
+        textView_2.setText(R.string.full_image_low_rus);
+
+    }
 
 }

@@ -26,10 +26,10 @@
                 android:id="@+id/quality_text"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="@string/quality"
-                android:textAlignment="center"
+                android:text="@string/quality_eng"
+                android:layout_marginLeft="110dp"
                 android:textSize="25sp"
-                android:gravity="center"
+
                 android:textColor="@color/textColor" />
 
             <LinearLayout
@@ -44,7 +44,7 @@
                     android:id="@+id/quality_low"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/quality_low"
+                    android:text="@string/quality_low_eng"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
                     android:textSize="20sp" />
@@ -54,7 +54,7 @@
                     android:id="@+id/quality_middle"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/quality_medium"
+                    android:text="@string/quality_medium_eng"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
                     android:textSize="20sp" />
@@ -64,7 +64,7 @@
                     android:id="@+id/quality_high"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/quality_high"
+                    android:text="@string/quality_high_eng"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
                     android:textSize="20sp" />
@@ -77,47 +77,63 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/default_style_cell"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="@string/quality"
-                android:textAlignment="center"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textColor="@color/textColor" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <ImageView
+
+                    android:id="@+id/image_style_preview"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/cross"
+                    android:scaleType="fitXY"/>
+                <TextView
+                    android:paddingLeft="42dp"
+                    android:id="@+id/default_style_cell"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/style_choose_eng"
+                    android:layout_margin="5dp"
+                    android:textSize="25sp"
+
+                    android:textColor="@color/textColor" />
+            </LinearLayout>
             <android.support.v7.widget.RecyclerView
 
                 android:id="@+id/choose_default_style_rv"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 android:orientation="vertical"
                 android:visibility="invisible">
 
             </android.support.v7.widget.RecyclerView>
+
         </LinearLayout>
 
+
+
+
         <LinearLayout
-            android:id="@+id/video_photo_cell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/video_photo_text"
+                android:id="@+id/lang_text"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="@string/video_photo_text"
-                android:textAlignment="center"
+                android:text="@string/choose_lang_text_eng"
+                android:layout_marginLeft="110dp"
                 android:textSize="25sp"
-                android:gravity="center"
+
                 android:textColor="@color/textColor" />
 
             <LinearLayout
-                android:id="@+id/video_photo_choose"
+                android:id="@+id/choose_lang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -125,55 +141,24 @@
 
                 <TextView
                     android:gravity="center"
-                    android:id="@+id/photo_choose"
+                    android:id="@+id/eng_choose"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/photo_text"
+                    android:text="@string/eng_text"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
                     android:textSize="20sp" />
 
                 <TextView
                     android:gravity="center"
-                    android:id="@+id/video_choose"
+                    android:id="@+id/rus_choose"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/video_text"
+                    android:text="@string/rus_text"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
-
-
-
-        <LinearLayout
-            android:id="@+id/default_style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/default_style_text"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="@string/video_photo_text"
-                android:textAlignment="center"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textColor="@color/textColor" />
-
-            <LinearLayout
-                android:id="@+id/default_style_choose"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="invisible">
-
-
-            </LinearLayout>
-        </LinearLayout>
-
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

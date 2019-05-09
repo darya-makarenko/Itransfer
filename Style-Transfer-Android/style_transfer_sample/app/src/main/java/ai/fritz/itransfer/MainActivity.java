@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import ai.fritz.core.Fritz;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView CameraButtonView;
@@ -24,9 +26,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView HelpButtonView;
     private ImageView ViewSettings;
     private ImageView imageView;
-    private int images_index[] = {R.drawable.animation_cat,
-                            R.drawable.animation_dog,
-                            R.drawable.animation_mona};
+    private int images_index[] = {R.drawable.animation_dog,
+                            R.drawable.animation_mona,
+                            R.drawable.animation_mona_2,
+                            R.drawable.animation_mona_3,
+                            R.drawable.animation_mona_4,
+                            R.drawable.animation_mountain,
+                            R.drawable.animation_river};
 
     private CountDownTimer timer;
 
@@ -34,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Fritz.configure(this);
 
 
 
@@ -114,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         //Intent intent_ = new Intent(MainActivity.this, EncodeVideoActivity.class);
         //startActivity(intent_);
+
+        if (MenuActivity.lang == 1){
+            setRussian();
+        } else {
+            setEnglish();
+        }
 
         int id = getRandomImageIndex(0, images_index.length);
         ///imageView.setImageBitmap(BitmapFactory.decodeResource(
@@ -216,6 +228,18 @@ public class MainActivity extends AppCompatActivity {
         }.start();
 
 
+    }
+
+    private void setEnglish(){
+        CameraButtonView.setText(R.string.camera_button_text_eng);
+        GalleryButtonView.setText(R.string.gallery_button_text_eng);
+        HelpButtonView.setText(R.string.help_button_text_eng);
+    }
+
+    private void setRussian(){
+        CameraButtonView.setText(R.string.camera_button_text_rus);
+        GalleryButtonView.setText(R.string.gallery_button_text_rus);
+        HelpButtonView.setText(R.string.help_button_text_rus);
     }
 
 }

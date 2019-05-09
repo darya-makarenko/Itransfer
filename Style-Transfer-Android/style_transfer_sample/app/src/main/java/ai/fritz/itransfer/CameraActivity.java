@@ -62,16 +62,22 @@ public class CameraActivity extends BaseCameraActivity implements ImageReader.On
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fritz.configure(this);
+
         Scale = 1;
+        contextView = findViewById(R.id.camera_container);
         //predictor = FritzVisionStyleTransfer.getPredictor(this, ArtisticStyle.HEAD_OF_CLOWN);
-        predictor = null;
+        if (MenuActivity.style_num == 11) {
+            predictor = null;
+        } else {
+            predictor = FritzVisionStyleTransfer.getPredictor(contextView.getContext(),
+                    StyleTrasferWork.getArtisticStyle(MenuActivity.style_num));
+        }
         videoPhotoQualityScale = 1;
         isVideo = false;
         layout = findViewById(R.id.camera_container);
         filterLayout = findViewById(R.id.filter_container);
 
-        contextView = findViewById(R.id.camera_container);
+
         setFilter();
         showFilter();
 
